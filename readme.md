@@ -1,6 +1,5 @@
 ![Dashboard](images/dashboard.png)
 Webhook-Factory
-NOT AN IP GRABBER
 
 A Python-based honeytoken factory and threat intelligence dashboard.
 
@@ -60,7 +59,7 @@ or you can create a secrets.env file as well for a trap so run:
 ```bash
 python make_credential.py <paste_your_url_here>
 ```
-The url u get is from porting from vscode or using external tools like ssh, cloudflared or ngrok
+The url u get is from porting from vscode or using external tools like ssh, cloudflared or ngrok and this is to be used for testing purposes only, Please use this trap inside your own server so accessing the link will catch hackers not someone innocent.
 
 5. Deploy:
 Move the generated company_login.html or secrets.env file to a location an attacker might look. Monitor your dashboard or database to see who takes the bait.
