@@ -1,7 +1,7 @@
 from user_agents import parse
 
 def ua_parser(ua_string):
-    if not ua_string:
+    if ua_string == "":
         return "Suspicious: Empty UA"
         
     automated_tools = ["python-requests", "curl", "wget", "sqlmap", "nmap", "masscan", "go-http-client", "zgrab", "nikto", "aiohttp"]

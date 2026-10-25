@@ -19,12 +19,22 @@ PIXEL_BYTES = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAA
 @app.get("/t/{token_id}")
 async def tracker_hit(token_id:str, request:Request):
     ip = request.client.host
-    ua = request.headers.get("user-agent")
+    ua = request.headers.get("user-agent") or ""
     location_data = get_location(ip)
     city = location_data.get("city")
     country = location_data.get("country")
     tool = ua_parser(ua)
+    if "<" in ua:
+        ua = "Suspicious Tried planting html injection"
+    elif tool == "Suspicious: Unrecognized Client":
+        ua = "Suspicious UA probably an exploit"
+    elif "Automated Tool" in tool:
+        ua = "Automated tool: "+ ua
+    
     organisation = org_check(ip)
+    if "<" in token_id:
+        token_id = "Invalid Token ID Tried to inject html"
+    
     log_event(token_id, ip, ua, city, country, tool, organisation)
     return Response(content=PIXEL_BYTES, media_type="image/png")
 
