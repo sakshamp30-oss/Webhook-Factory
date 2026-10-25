@@ -1,3 +1,4 @@
+![Dashboard](images/dashboard.png)
 Webhook-Factory
 NOT AN IP GRABBER
 
