@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+
+data/tokens.db
+*.db
+
+*.mmdb
+
+company_login.html
+compay_login.html
+secrets.env
+
+RandomString.txt
+.env
