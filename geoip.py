@@ -5,7 +5,7 @@ city_DB_PATH = "data/GeoLite2-City.mmdb"
 proxy_DB_PATH = "data/GeoLite2-ASN.mmdb"
 
 def get_location(ip):
-    if ipaddress.ip_address(ip).is_private():
+    if ipaddress.ip_address(ip).is_private:
         return {"city": "Localhost", "country": "Local"}
         
     try:
