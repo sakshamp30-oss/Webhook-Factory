@@ -80,4 +80,4 @@ By downloading or using this software, you agree to the following:
 
     I assume no liability and am not responsible for any misuse, damage, or legal consequences caused by this software. Do not cause any harm using this.
 
-    Made for educational purposes by Saksham Paudel: (https://github.com/sakshamp30-oss)
+Made for educational purposes by Saksham Paudel: (https://github.com/sakshamp30-oss)
