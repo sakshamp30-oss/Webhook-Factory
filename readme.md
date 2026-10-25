@@ -10,9 +10,9 @@ Features
 
     Dynamic Traps: Generates .env files with fake AWS keys and HTML pages with hidden 1x1 tracking pixels. Every generated file gets a unique 12-character token.
 
-    Local GeoIP Lookup: Uses MaxMind GeoLite2 databases instead of third-party APIs. Because getting rate-limited by Facebook bots within five minutes of going live is annoying.
+    Local GeoIP Lookup: Uses MaxMind GeoLite2 databases instead of third-party APIs. Services like Facebook send crawlers as soon as a link is shared, and third-party lookup APIs often rate-limit them, so a local database avoids that problem
 
-    ASN/VPN Detection: Checks the network owner of the incoming IP. If it belongs to a hosting provider or known VPN, it flags it. It won't catch a sophisticated attacker using a residential proxy, but it catches the lazy ones.
+    ASN/VPN Detection: Checks the network owner of the incoming IP. If it belongs to a hosting provider or known VPN, it shows the organisation. It won't catch a sophisticated attacker using a residential proxy, but it catches the lazy ones.
 
     Secret Dashboard: A local web UI to view your captured targets. It's protected by a randomized URL generated on startup, so random people can't browse your threat intel.
 
@@ -49,8 +49,10 @@ wget -O data/GeoLite2-ASN.mmdb https://raw.githubusercontent.com/P3TERX/GeoLite.
 ```bash
 uvicorn server:app --reload
 ```
-Check your terminal. The server will print a Dashboard Path: /dashboardXXXXXX. Save that URL; it's the only way to access the web UI. This is done to make reaching the dashboard from unauthorised people impossible or close to impossible as the random string generating has more than 3 sextillion combinations.
+Check your terminal. The server will print a Dashboard Path: /dashboardXXXXXX. Save that URL; it's the only way to access the web UI. This is done to make reaching the dashboard from unauthorised people extremely hard as the random string generating has more than 3 sextillion combinations.
+
 4. Generate a trap:
+FOR TESTING PURPOSES
 Open a second terminal tab. Pass your public tunnel URL (via ngrok, VS Code Ports, etc.) as an argument. Make sure to include /t/ at the end.
 ```bash
 python make_html_trap.py <paste_your_url_here>
@@ -59,10 +61,10 @@ or you can create a secrets.env file as well for a trap so run:
 ```bash
 python make_credential.py <paste_your_url_here>
 ```
-The url u get is from porting from vscode or using external tools like ssh, cloudflared or ngrok and this is to be used for testing purposes only, Please use this trap inside your own server so accessing the link will catch hackers not someone innocent.
+This is to be used for testing purposes only, Please use this trap inside your own server so accessing the link will catch hackers not someone innocent. The public URL comes from port forwarding (VS Code) or a tunnel tool such as ngrok or Cloudflared. 
 
 5. Deploy:
-Move the generated company_login.html or secrets.env file to a location an attacker might look. Monitor your dashboard or database to see who takes the bait.
+Move the generated company_login.html or secrets.env file to a location inside your server where an attacker might look if they break into it. Monitor your dashboard or database to see who takes the bait.
 
 Disclaimer and Ethical Use
 
