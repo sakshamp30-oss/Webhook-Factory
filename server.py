@@ -27,7 +27,7 @@ async def tracker_hit(token_id:str, request:Request):
     if "<" in ua:
         ua = "Suspicious Tried planting html injection"
     elif tool == "Suspicious: Unrecognized Client":
-        ua = "Suspicious UA probably an exploit"
+        ua = "Suspicious UA probably an exploit: " + ua
     elif "Automated Tool" in tool:
         ua = "Automated tool: "+ ua
     
