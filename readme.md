@@ -16,9 +16,13 @@ Features
 
     Secret Dashboard: A local web UI to view your captured targets. It's protected by a randomized URL generated on startup, so random people can't browse your threat intel.
 
+    Persistent Token Registry: Stores active honeytoken values in `tokens.txt`, allowing the separate trap-generator scripts and FastAPI listener to share token state. Each generator updates its own token entry while preserving the other trap type's entry.
+
 Architecture
 
     The Factory (make_*.py): Generates the trap files and builds the tracking URLs.
+
+    The Token Registry (tokens.txt): Stores the active token for each trap type. The generators update the relevant entry, and the listener reads the registry to validate incoming requests.
 
     The Listener (server.py): A FastAPI endpoint that catches the incoming webhooks and returns a blank 1x1 PNG so the client doesn't get suspicious.
 
@@ -62,6 +66,13 @@ or you can create a secrets.env file as well for a trap so run:
 python make_credential.py <paste_your_url_here>
 ```
 This is to be used for testing purposes only, Please use this trap inside your own server so accessing the link will catch hackers not someone innocent. The public URL comes from port forwarding (VS Code) or a tunnel tool such as ngrok or Cloudflared. 
+### Token Persistence
+
+The first trap-generation run creates `tokens.txt` if it does not already exist. This file allows the trap generators and the FastAPI server to share token information even when running in separate terminal processes.
+
+Run the generator scripts and the server from the project directory so they access the same `tokens.txt` file.
+
+**Note:** Regenerating a trap replaces its previously registered token. Consequently, an older HTML trap or credential trap of the same type will no longer pass token validation once its token has been replaced. The other trap type's registered token remains unchanged.
 
 5. Deploy:
 Move the generated company_login.html or secrets.env file to a location inside your server where an attacker might look if they break into it. Monitor your dashboard or database to see who takes the bait.
