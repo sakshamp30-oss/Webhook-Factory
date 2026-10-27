@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi import Response
+import html
 from fastapi.responses import HTMLResponse
 from db import init_db
 from db import log_event
@@ -49,13 +50,13 @@ print(f"Dashboard Path: /dashboard{randomstr}")
 @app.get(f"/dashboard{randomstr}", response_class=HTMLResponse)
 async def dashboard():
     events = get_events()
-    html = """<html><body><h1> IP table</h1>
+    htmll = """<html><body><h1> IP table</h1>
             <table border = '1'>
                 <tr><th>ID</th><th>Token ID</th><th>ip</th><th>User Agent</th><th>Timestamp</th><th>city</th><th>country</th><th>tool</th><th>organisation</th></tr>"""
 
     for event in events:
-        html+=f"                <tr><td>{event['id']}</td><td>{event['token_id']}</td><td>{event['ip']}</td><td>{event['user_agent']}</td><td>{event['timestamp']}</td><td>{event['city']}</td><td>{event['country']}</td><td>{event['tool']}</td><td>{event['organisation']}</td></tr>"
+        htmll+=f"                <tr><td>{event['id']}</td><td>{event['token_id']}</td><td>{event['ip']}</td><td>{html.escape(event['user_agent'])}</td><td>{event['timestamp']}</td><td>{event['city']}</td><td>{event['country']}</td><td>{event['tool']}</td><td>{event['organisation']}</td></tr>"
 
-    html+= "</table></body></html>"
-    return HTMLResponse(html)
+    htmll+= "</table></body></html>"
+    return HTMLResponse(htmll)
 
