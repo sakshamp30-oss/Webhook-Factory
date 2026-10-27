@@ -1,6 +1,7 @@
 from mint import generate_token
 import sys
 def create_credential_file(BASE_URL):
+    global token
     token = generate_token()
     tracker_url = BASE_URL + token
     content = f"""AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
@@ -13,6 +14,8 @@ def create_credential_file(BASE_URL):
 
     print(f"Create secrets.env ! Trap URL: {tracker_url}")
 
+def get_secret_token():
+    return token
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("""Please enter a base url by using the command

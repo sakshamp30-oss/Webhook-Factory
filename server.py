@@ -10,6 +10,9 @@ from parser import ua_parser
 from geoip import get_location
 from geoip import org_check
 from mint import generate_token
+from make_html_trap import get_html_token
+from make_credential import get_secret_token
+from pathlib import Path
 
 app = FastAPI()
 init_db()
@@ -18,6 +21,8 @@ PIXEL_BYTES = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAA
 
 @app.get("/t/{token_id}")
 async def tracker_hit(token_id:str, request:Request):
+    if not ((Path("company_login.html").exists() and token_id == get_html_token()) or (Path("secrets.env").exists() and token_id == get_secret_token())):
+        return Response(content= PIXEL_BYTES, status_code=403)
     ip = request.client.host
     ua = request.headers.get("user-agent") or ""
     location_data = get_location(ip)
@@ -32,11 +37,11 @@ async def tracker_hit(token_id:str, request:Request):
         ua = "Automated tool: "+ ua
     
     organisation = org_check(ip)
-    if "<" in token_id:
-        token_id = "Invalid Token ID Tried to inject html"
+    
     
     log_event(token_id, ip, ua, city, country, tool, organisation)
     return Response(content=PIXEL_BYTES, media_type="image/png")
+        
 
 
 randomstr = generate_token()
