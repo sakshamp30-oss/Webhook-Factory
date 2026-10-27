@@ -13,7 +13,10 @@ if file_exists:
 def create_credential_file(BASE_URL):
     global token
     token = generate_token()
-    tracker_url = BASE_URL + token
+    if BASE_URL[len(BASE_URL)-1] == "/":
+        tracker_url = BASE_URL + "t/" + token
+    else:
+        tracker_url = BASE_URL + "/t/" + token
     content = f"""AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
                 AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 AWS_DEFAULT_REGION=us-east-1

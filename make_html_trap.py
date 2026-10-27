@@ -13,7 +13,11 @@ if file_exists:
 def create_html_trap(BASEURL):
     global token
     token = generate_token()
-    tracker_url = BASEURL + token
+    if BASEURL[len(BASEURL)-1] == "/":
+        tracker_url = BASEURL + "t/" + token
+    else:
+        tracker_url = BASEURL + "/t/" + token
+
     html_content = f''' <html>
                             <h1> BLA BLA Internet portal</h1>
                             <body> <img src="{tracker_url}" style="display:none;"> </body>
