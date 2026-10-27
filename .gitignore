@@ -10,6 +10,7 @@ data/tokens.db
 company_login.html
 compay_login.html
 secrets.env
+tokens.txt
 
 RandomString.txt
 .env
