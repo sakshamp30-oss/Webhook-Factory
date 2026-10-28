@@ -7,7 +7,7 @@ from db import init_db
 from db import log_event
 from db import get_events
 import base64
-from parser import ua_parser
+from browser_parser import ua_parser
 from geoip import get_location
 from geoip import org_check
 from mint import generate_token
