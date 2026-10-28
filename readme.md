@@ -57,7 +57,7 @@ Check your terminal. The server will print a Dashboard Path: /dashboardXXXXXX. S
 
 4. Generate a trap:
 FOR TESTING PURPOSES
-Open a second terminal tab. Pass your public tunnel URL (via ngrok, VS Code Ports, etc.) as an argument. Make sure to include /t/ at the end.
+Open a second terminal tab. Pass your public tunnel URL (via ngrok, VS Code Ports, etc.) as an argument.
 ```bash
 python make_html_trap.py <paste_your_url_here>
 ```
