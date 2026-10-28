@@ -29,10 +29,13 @@ def create_html_trap(BASEURL):
     print(f"created a html file! URL: {tracker_url}")
 
 def get_html_token():
-    with open("tokens.txt", "r") as f:
-        for line in f:
-            if line.strip().startswith("Html") :
-                return(line.strip()[5:17])
+    try:
+        with open("tokens.txt", "r") as f:
+            for line in f:
+                if line.strip().startswith("Html") :
+                    return(line.strip()[5:17])
+    except FileNotFoundError:
+        return generate_token()
 
 
 if __name__ == "__main__":

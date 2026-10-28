@@ -13,7 +13,6 @@ from geoip import org_check
 from mint import generate_token
 from make_html_trap import get_html_token
 from make_credential import get_secret_token
-from pathlib import Path
 
 app = FastAPI()
 init_db()
@@ -22,7 +21,7 @@ PIXEL_BYTES = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAA
 
 @app.get("/t/{token_id}")
 async def tracker_hit(token_id:str, request:Request):
-    if not ((Path("company_login.html").exists() and token_id == get_html_token()) or (Path("secrets.env").exists() and token_id == get_secret_token())):
+    if not ((token_id == get_html_token()) or (token_id == get_secret_token())):
         return Response(content= PIXEL_BYTES, status_code=403)
     ip = request.client.host
     ua = request.headers.get("user-agent") or ""

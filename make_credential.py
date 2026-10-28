@@ -28,10 +28,13 @@ def create_credential_file(BASE_URL):
     print(f"Create secrets.env ! Trap URL: {tracker_url}")
 
 def get_secret_token():
-    with open("tokens.txt", "r") as f:
-        for line in f:
-            if line.strip().startswith("Secr") :
-                return(line.strip()[5:17])
+    try:
+        with open("tokens.txt", "r") as f:
+            for line in f:
+                if line.strip().startswith("Secr") :
+                    return(line.strip()[5:17])
+    except FileNotFoundError:
+        return generate_token()
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("""Please enter a base url by using the command
