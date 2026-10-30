@@ -33,6 +33,8 @@ def get_secret_token():
             for line in f:
                 if line.strip().startswith("Secr") :
                     return(line.strip()[5:17])
+                else:
+                    return generate_token()
     except FileNotFoundError:
         return generate_token()
 if __name__ == "__main__":
